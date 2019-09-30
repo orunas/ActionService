@@ -1,0 +1,17 @@
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/
+.idea/libraries/Leiningen__cheshire_5_5_0.xml
+.idea/libraries/Leiningen__com_fasterxml_jackson_dataformat_jackson_dataformat_cbor_2_5_3.xml
+.idea/libraries/Leiningen__com_fasterxml_jackson_dataformat_jackson_dataformat_smile_2_5_3.xml
+.idea/libraries/Leiningen__ring_ring_json_0_4_0.xml
+.idea/libraries/Leiningen__tigris_0_1_1.xml
+.idea/vcs.xml
