@@ -27,7 +27,7 @@
       (clojure.pprint/pprint (:features (first (json/read-str body :key-fn keyword))) ))))
 
 (cc/defroutes all-routes
-              (cc/POST "/action" [req] perceive-data)
+              (cc/POST "/rasa-webhook" [req] perceive-data)
               (cc/GET "/ev" [] get-list)
               )
 
