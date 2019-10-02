@@ -13,26 +13,36 @@
   (:gen-class)
   )
 
+(defonce server (atom nil))
 
+(defn track-station-start-action [state]
+  (let [station-id (-> state :tracker :slots :ev_station_id)
+        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        ]
+    (print (json/read-str body :key-fn keyword))))
 
 (defn perceive-data [req1]
-  (println "received" req1)
-  )
+  (print req1)
+  (let [bd ((slurp (req1 :body)) :key-fn keyword)]
+    (print (bd :next_action))
+    (case (bd :next_action)
+      "track_station_start_action" (track-station-start-action bd))))
 
 (defn get-list [& req]
   ;(print "req params" req)
   (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
     (if error
       (println "failed" error)
-      (clojure.pprint/pprint (:features (first (json/read-str body :key-fn keyword))) ))))
+      ;(clojure.pprint/pprint (:features (first (json/read-str body :key-fn keyword))))
+      body
+      )))
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
-              (cc/GET "/ev" [] get-list)
-              )
+              (cc/GET "/ev" [] get-list))
 
 
-(defonce server (atom nil))
+
 
 
 (defn stop-server []
@@ -56,3 +66,5 @@
       ;(run-server handler {:port port})
       (reset! server (run-server handler {:port port}))
       )))
+
+
