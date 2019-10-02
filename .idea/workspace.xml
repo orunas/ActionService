@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7e36dde-a22f-426d-9c0e-05a0f836459d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/action_service/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/src/action_service/core.clj" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,38 +14,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file leaf-file-name="core.clj" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/action_service/core.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+            <state relative-caret-position="204">
+              <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/http-kit/http-kit/2.3.0/http-kit-2.3.0.jar!/org/httpkit/client.clj">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4624">
-              <caret line="272" column="9" selection-start-line="272" selection-start-column="9" selection-end-line="272" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="project.clj" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project.clj">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/action_service/test.clj">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -71,10 +55,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1697" />
+    <option name="height" value="1027" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -82,39 +66,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="action-service" type="b2602c69:ProjectViewProjectNode" />
-              <item name="action-service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="action-service" type="b2602c69:ProjectViewProjectNode" />
-              <item name="action-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="action-service" type="b2602c69:ProjectViewProjectNode" />
-              <item name="action-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="action_service" type="462c0819:PsiDirectoryNode" />
+              <item name="ActionService" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ActionService" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569878530417" />
     <property name="cursive.last.file.extension.C\:/git/clojure/action-service/src" value="clj" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kb_service" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="ReplState" timestamp="1570023427971">{:repl-history {:ide [], :local [{:command &quot;(use '{action-service.core})&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(use '(action-service.core))&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data s)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'a)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(require 'action-service.core)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(ns action-service.core)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.main)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'test)&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data 'test)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core1])&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.-main)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(require '[action-service.core])&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data)&quot;, :offset 35, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data \&quot;ss\&quot;)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.test)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(test1 \&quot;s\&quot;)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;( perceive-data  \&quot;sd\&quot;)&quot;, :offset 22, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core])&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;ss\&quot;)&quot;, :offset 20, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;s\&quot;)&quot;, :offset 19, :ns &quot;action-service.core&quot;} {:command &quot;(slurp (@in-data :body))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next-action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next_action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;(keys (json/read-str @in-data :key-fn keyword) )&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(:domain (json/read-str @in-data :key-fn keyword) )&quot;, :offset 51, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn)&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn keyword)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;@in-data&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; (json/read-str @in-data :key-fn keyword) :tracker :slots :ev_station_id)&quot;, :offset 76, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(-main)&quot;, :offset 7, :ns &quot;action-service.core&quot;}], :remote []}}</component>
+  <component name="ReplState" timestamp="1570046937491">{:repl-history {:ide [], :local [{:command &quot;(use '{action-service.core})&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(use '(action-service.core))&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data s)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'a)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(require 'action-service.core)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(ns action-service.core)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.main)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'test)&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data 'test)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core1])&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.-main)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(require '[action-service.core])&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data)&quot;, :offset 35, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data \&quot;ss\&quot;)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.test)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(test1 \&quot;s\&quot;)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;( perceive-data  \&quot;sd\&quot;)&quot;, :offset 22, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core])&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;ss\&quot;)&quot;, :offset 20, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;s\&quot;)&quot;, :offset 19, :ns &quot;action-service.core&quot;} {:command &quot;(slurp (@in-data :body))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next-action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next_action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;(keys (json/read-str @in-data :key-fn keyword) )&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(:domain (json/read-str @in-data :key-fn keyword) )&quot;, :offset 51, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn)&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn keyword)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;@in-data&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; (json/read-str @in-data :key-fn keyword) :tracker :slots :ev_station_id)&quot;, :offset 76, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(stop-server)&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(-main)&quot;, :offset 7, :ns &quot;action-service.core&quot;}], :remote []}}</component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -130,45 +104,40 @@
   <component name="RunManager" selected="Clojure REPL.Local REPL">
     <configuration name="Local REPL" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
       <module name="action-service" />
-      <setting name="replType" value="NREPL" />
-      <setting name="execution" value="LEININGEN" />
+      <setting name="replType" value="1" />
       <setting name="jvmArgs" value="" />
       <setting name="parameters" value="" />
       <setting name="workingDir" value="$PROJECT_DIR$" />
       <setting name="profiles" value="" />
-      <setting name="aliases" value="" />
-      <method v="2" />
     </configuration>
     <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
-      <setting name="replType" value="NREPL" />
-      <setting name="execution" value="LEININGEN" />
+      <setting name="replType" value="1" />
       <module name="" />
       <setting name="jvmArgs" value="" />
       <setting name="parameters" value="" />
       <setting name="workingDir" value="" />
       <setting name="profiles" value="" />
-      <setting name="aliases" value="" />
-      <method v="2" />
     </configuration>
     <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
       <setting name="host" value="" />
       <setting name="port" value="0" />
       <setting name="replType" value="0" />
       <module name="" />
-      <method v="2" />
     </configuration>
     <configuration name="action-service.core" type="ClojureScriptRunConfiguration" factoryName="Clojure Script" temporary="true">
       <module name="action-service" />
       <setting name="path" value="" />
       <setting name="namespace" value="action-service.core" />
-      <setting name="execution" value="INTELLIJ" />
+      <setting name="useLein" value="false" />
       <setting name="profiles" value="" />
-      <setting name="aliases" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workDir" value="$PROJECT_DIR$" />
-      <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Clojure REPL.Local REPL" />
+      <item itemvalue="Clojure Application.action-service.core" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Clojure Application.action-service.core" />
@@ -197,43 +166,55 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14925373" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.13109426" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info active="true" anchor="right" id="REPL" order="6" side_tool="true" visible="true" weight="0.3955224" />
-      <window_info anchor="right" id="Leiningen" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32936078" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info active="true" anchor="right" id="REPL" order="6" side_tool="true" visible="true" weight="0.2799479" />
+      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.106206894" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.13109426" />
+      <window_info anchor="right" id="Leiningen" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Designer" order="3" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.091796875" />
+      <window_info anchor="bottom" id="Inspection Results" weight="0.32965517" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
     <option name="LAST_COMMIT_MESSAGE" value="first" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/action_service/core.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/http-kit/http-kit/2.3.0/http-kit-2.3.0.jar!/org/httpkit/client.clj">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4624">
@@ -248,10 +229,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/action_service/test.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/http-kit/http-kit/2.3.0/http-kit-2.3.0.jar!/org/httpkit/client.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="272" column="9" selection-start-line="272" selection-start-column="9" selection-end-line="272" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -262,10 +257,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/action_service/core.clj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+        <state relative-caret-position="204">
+          <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
         </state>
       </provider>
     </entry>

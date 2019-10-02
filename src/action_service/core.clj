@@ -13,29 +13,56 @@
   (:gen-class)
   )
 
+(def plugs {:LRA-names ["AC (Mode 3, Type 2)" "CHAdeMO" "CCS (Combo 2)"]
+            :short-names ["Type2" "CHAdeMO", "CCS"]}
+  )
+
 (defonce server (atom nil))
+
+(defn available-to-string [coll val sep]
+  (let [avail-coll (filter #(= val (% :value)) coll)]
+    (if (= (count avail-coll) (count coll))
+      "All"
+      (clojure.string/join sep (map #(% :key) avail-coll)) )
+     )
+  )
 
 (defn track-station-start-action [state]
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                        (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
+
         ]
-    (print (json/read-str body :key-fn keyword))))
+    {
+     :status  (if error 500 200)
+     :headers {"Context-Type" "application/json"}
+     :body    (json/write-str {:events [] :responses [{:text (str
+                                                               "station " station-id " has plugs : "
+                                                               (clojure.string/join "," (map #(% :key) station-plugs))
+                                                               " available: " (available-to-string station-plugs "Available" ","))}]})
+     }))
 
 (defn perceive-data [req1]
-  (print req1)
-  (let [bd ((slurp (req1 :body)) :key-fn keyword)]
-    (print (bd :next_action))
+  ;(println req1)
+  (let [bd (json/read-str (slurp (req1 :body)) :key-fn keyword)]
+    ;(println (bd :next_action))
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd))))
 
 (defn get-list [& req]
   ;(print "req params" req)
   (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
-    (if error
-      (println "failed" error)
-      ;(clojure.pprint/pprint (:features (first (json/read-str body :key-fn keyword))))
-      body
-      )))
+    (if error (println "failed" error))
+    {
+     :status (if error 500 200)
+     :headers {"Context-Type" "application/json"}
+     :body body
+     }
+    ))
+
+(defn in? [elm coll]
+  (some #(= elm %) coll))
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
@@ -68,3 +95,17 @@
       )))
 
 
+
+(def data1
+  {:name "Joniškio elektromobilių įkrovos stotelė, A12,",
+   :info [{:keyValue [{:key "Photo date", :value "2019-10-02 21:41"}
+                      {:key "Road", :value "A12"}
+                      {:key "Kilometer", :value "20.31"}
+                      {:key "Collection date", :value "2019-10-02 21:46"}
+                      {:key "Common status", :value "Available"}
+                      {:key "AC (Mode 3, Type 2)", :value "Available"}
+                      {:key "CHAdeMO", :value "Available"}
+                      {:key "CCS (Combo 2)", :value "Available"}],
+           :text "",
+           :photos ["http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860"]
+           }]})
