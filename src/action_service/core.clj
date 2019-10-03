@@ -17,6 +17,13 @@
             :short-names ["Type2" "CHAdeMO", "CCS"]}
   )
 
+(defn printout2 [v]
+  (println v)
+  v)
+
+(defn in? [elm coll]
+  (some #(= elm %) coll))
+
 (defonce server (atom nil))
 
 (defn available-to-string [coll val sep]
@@ -27,6 +34,11 @@
      )
   )
 
+(comment
+  (json/write-str {:events [] :responses [
+                                          ;{:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                                          ]}))
+
 (defn track-station-start-action [state]
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
@@ -34,14 +46,12 @@
                         (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
 
         ]
-    {
-     :status  (if error 500 200)
-     :headers {"Context-Type" "application/json"}
-     :body    (json/write-str {:events [] :responses [{:text (str
-                                                               "station " station-id " has plugs : "
-                                                               (clojure.string/join "," (map #(% :key) station-plugs))
-                                                               " available: " (available-to-string station-plugs "Available" ","))}]})
-     }))
+    (printout2 {
+      :status  (if error 500 200)
+      :headers {"Context-Type" "application/json"}
+      :body nil
+
+      })))
 
 (defn perceive-data [req1]
   ;(println req1)
@@ -61,8 +71,7 @@
      }
     ))
 
-(defn in? [elm coll]
-  (some #(= elm %) coll))
+
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
