@@ -45,13 +45,13 @@
 
         ]
     (printout2 {
-      :status  (if error 500 200)
-      :headers {"Context-Type" "application/json"}
-      :body {:events [] :responses [
-                                    ;{:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
-                                    ]}                      ; (json/write-str )
+                :status  (if error 500 200)
+                :headers {"Content-Type" "application/json"}
+                :body    (json/write-str  {:events [] :responses [
+                                                                  {:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                                                  ]})
 
-      })))
+                })))
 
 (defn perceive-data [req1]
   ;(println req1)
