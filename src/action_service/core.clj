@@ -47,18 +47,41 @@
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
+                :body    (json/write-str {:events    [{:event            "reminder"
+                                                       :action           "track_station_start_action"
+                                                       :date_time        (.format (.plusSeconds (java.time.LocalDateTime/now) 10) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+                                                       :name             (str "track_reminder" station-id)
+                                                       :kill_on_user_msg false}
+                                                      ]
+                                          :responses [
+                                                      {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll let you about changes")}
+                                                      ]})
+
+                })))
+
+(defn check-station-action [state]
+  (let [station-id (-> state :tracker :slots :ev_station_id)
+        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
+
+        ]
+    (printout2 {
+                :status  (if error 500 200)
+                :headers {"Content-Type" "application/json"}
                 :body    (json/write-str  {:events [] :responses [
                                                                   {:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
-                                                  ]})
+                                                                  ]})
 
                 })))
 
 (defn perceive-data [req1]
   ;(println req1)
   (let [bd (json/read-str (slurp (req1 :body)) :key-fn keyword)]
-    ;(println (bd :next_action))
+    (println bd)
     (case (bd :next_action)
-      "track_station_start_action" (track-station-start-action bd))))
+      "track_station_start_action" (track-station-start-action bd)
+      "check_station_action" (check-station-action bd))))
 
 (defn get-list [& req]
   ;(print "req params" req)
