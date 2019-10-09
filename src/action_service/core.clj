@@ -48,10 +48,10 @@
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
                 :body    (json/write-str {:events    [{:event            "reminder"
-                                                       :action           "track_station_start_action"
-                                                       :date_time        (.format (.plusSeconds (java.time.LocalDateTime/now) 10) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+                                                       :action           "utter_goodbye"
+                                                       :date_time        (.format (.plusSeconds (java.time.LocalDateTime/now) 20) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
                                                        :name             (str "track_reminder" station-id)
-                                                       :kill_on_user_msg false}
+                                                       :kill_on_user_msg true}
                                                       ]
                                           :responses [
                                                       {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll let you about changes")}
