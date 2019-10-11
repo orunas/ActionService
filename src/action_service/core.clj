@@ -47,19 +47,19 @@
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
-                :body    (json/write-str {:events    [{:event                "reminder"
-                                                       :action_name          "action_reminder233"
-                                                       :date_time    (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
-                                                       ;  :name             (str "track_reminder" station-id)
-                                                       :kill_on_user_message false
-                                                       }
-                                                      ]
-                                          :responses [;{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-minutes " minutes)}
+                :body    (json/write-str {:events    [      ]
+                                          :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-minutes " minutes")}
                                                       ]})
 
                 })))
 
 (comment
+  {:event                "reminder"
+   :action          "action_reminder"
+   :date_time    (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+   ;  :name             (str "track_reminder" station-id)
+   :kill_on_user_msg false
+   }
   )
 
 (defn check-station-action [state]
