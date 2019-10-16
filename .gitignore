@@ -15,3 +15,6 @@ pom.xml.asc
 .idea/libraries/Leiningen__ring_ring_json_0_4_0.xml
 .idea/libraries/Leiningen__tigris_0_1_1.xml
 .idea/vcs.xml
+.idea/libraries/Leiningen__tea_time_1_0_1.xml
+.idea/libraries/Leiningen__org_clojure_tools_logging_0_4_1.xml
+.idea/workspace.xml
