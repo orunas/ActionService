@@ -47,20 +47,29 @@
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
-                :body    (json/write-str {:events    [      ]
+                :body    (json/write-str {:events    [{:event                "reminder"
+                                                       :action          "action_reminder"
+                                                       :date_time    (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+                                                       ;  :name             (str "track_reminder" station-id)
+                                                       :kill_on_user_msg false
+                                                       }      ]
                                           :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-minutes " minutes")}
                                                       ]})
 
                 })))
 
 (comment
-  {:event                "reminder"
-   :action          "action_reminder"
-   :date_time    (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
-   ;  :name             (str "track_reminder" station-id)
-   :kill_on_user_msg false
-   }
+
   )
+
+(defn rasa-text [t]
+  (let [{:keys [status headers body error] :as resp} @(http/post "http://localhost:5005/webhooks/callback/webhook" {:headers {"Content-Type" "application/json"}
+                                                                                                                   :body    (json/write-str {:sender "Rasa", :message t})})]
+    (if error resp body)
+    )
+
+  )
+
 
 (defn check-station-action [state]
   (let [station-id (-> state :tracker :slots :ev_station_id)
@@ -73,7 +82,7 @@
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
                 :body    (json/write-str  {:events [] :responses [
-                                                                  {:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                                                                  {:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") "")}
                                                                   ]})
 
                 })))
@@ -84,7 +93,9 @@
     (println bd)
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd)
-      "check_station_action" (check-station-action bd))))
+      "check_station_action" (check-station-action bd)
+      "action_reminder" (check-station-action bd)
+      )))
 
 (defn get-list [& req]
   ;(print "req params" req)
@@ -92,16 +103,24 @@
     (if error (println "failed" error))
     {
      :status (if error 500 200)
-     :headers {"Context-Type" "application/json"}
+     :headers {"Content-Type" "application/json"}
      :body body
      }
     ))
 
 
+(defn receive-callback [r]
+  (let [bd (json/read-str (slurp (r :body)) :key-fn keyword)]
+    (println bd)
+    )
+  )
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
-              (cc/GET "/ev" [] get-list))
+              (cc/GET "/ev" [] get-list)
+              (cc/POST "/callback" [req] receive-callback)
+
+              )
 
 
 
