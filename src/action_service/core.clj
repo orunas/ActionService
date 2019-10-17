@@ -79,6 +79,25 @@
 
                 })))
 
+(defn check-station-action-wih-callback [state callback-url]
+  (let [station-id (-> state :tracker :slots :ev_station_id)
+        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
+
+        ]
+    (printout2 {
+                :status  (if error 500 200)
+                :headers {"Content-Type" "application/json"}
+                :body    (json/write-str  {:events [
+                                                    {:e
+                                                     :text (str "station " station-id " available plugs: " (available-to-string station-plugs "Available" ","))}
+                                                    ]
+                                           })
+
+                }))
+  )
+
 (defn perceive-data [req1]
   ;(println req1)
   (let [bd (json/read-str (slurp (req1 :body)) :key-fn keyword)]
