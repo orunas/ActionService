@@ -9,14 +9,15 @@
     [org.httpkit.client :as http]
     [clojure.data.json :as json]
     [environ.core :refer [env]]
-    [tea-time.core :as tt]
+    [overtone.at-at :as at]
     )
   (:gen-class)
   )
 
-(def plugs {:LRA-names ["AC (Mode 3, Type 2)" "CHAdeMO" "CCS (Combo 2)"]
+(def plugs {:LRA-names   ["AC (Mode 3, Type 2)" "CHAdeMO" "CCS (Combo 2)"]
             :short-names ["Type2" "CHAdeMO", "CCS"]}
   )
+(def my-pool (at/mk-pool))
 
 (defn printout2 [v]
   (println v)
@@ -31,33 +32,51 @@
   (let [avail-coll (filter #(= val (% :value)) coll)]
     (if (= (count avail-coll) (count coll))
       "All"
-      (clojure.string/join sep (map #(% :key) avail-coll)) )
-     )
+      (clojure.string/join sep (map #(% :key) avail-coll)))
+    )
   )
 
 (comment
   )
 
-(defn track-station-start-action [state]
+(defn check-station-action-wih-callback-t [state callback-url]
+  (println (str "check-station-action-wih-callback-t" state callback-url)))
+
+(defn check-station-action-wih-callback [state callback-url]
+  (println "in check-station-action-wih-callback")
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                        (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
-        remind-minutes 2
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue))]
+    (http/post callback-url {:headers {"Content-Type" "application/json"}
+                             :body    (json/write-str {:name "utter_station_status"})})))
+
+
+(defn track-station-start-action [state]
+  (println "track-station-start-action: started with state" state)
+  (let [station-id (-> state :tracker :slots :ev_station_id)
+        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue))
+        remind-secs 30
+        conversation-id (-> state :tracker :conversation_id)
+        schedule (at/every 10000
+                           ;(println (format "http://localhost:5005/conversations/%s/execute" conversation-id))
+                           #(check-station-action-wih-callback (format "http://localhost:5005/conversations/%s/execute" "default") state)
+                           my-pool)
         ]
+    (println (format "http://localhost:5005/conversations/%s/execute" conversation-id))
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
-                :body    (json/write-str {:events    [      ]
-                                          :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-minutes " minutes")}
-                                                      ]})
-
-                })))
+                :body    (json/write-str {:events    []
+                                          :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-secs " seconds")}
+                                                      ]})})))
 
 (comment
-  {:event                "reminder"
-   :action          "action_reminder"
-   :date_time    (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
+  {:event            "reminder"
+   :action           "action_reminder"
+   :date_time        (.format (.plusMinutes (.withNano (java.time.LocalDateTime/now) 0) remind-minutes) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))
    ;  :name             (str "track_reminder" station-id)
    :kill_on_user_msg false
    }
@@ -67,36 +86,19 @@
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                              (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue))
 
         ]
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
-                :body    (json/write-str  {:events [] :responses [
-                                                                  {:text (str "station " station-id " has plugs : "  (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
-                                                                  ]})
+                :body    (json/write-str {:events [] :responses [
+                                                                 {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                                                                 ]})
 
                 })))
 
-(defn check-station-action-wih-callback [state callback-url]
-  (let [station-id (-> state :tracker :slots :ev_station_id)
-        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
-        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                              (-> (json/read-str body :key-fn keyword) :info first :keyValue) )
 
-        ]
-    (printout2 {
-                :status  (if error 500 200)
-                :headers {"Content-Type" "application/json"}
-                :body    (json/write-str  {:events [
-                                                    {:e
-                                                     :text (str "station " station-id " available plugs: " (available-to-string station-plugs "Available" ","))}
-                                                    ]
-                                           })
-
-                }))
-  )
 
 (defn perceive-data [req1]
   ;(println req1)
@@ -111,9 +113,9 @@
   (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
     (if error (println "failed" error))
     {
-     :status (if error 500 200)
+     :status  (if error 500 200)
      :headers {"Context-Type" "application/json"}
-     :body body
+     :body    body
      }
     ))
 
@@ -161,6 +163,6 @@
                       {:key "AC (Mode 3, Type 2)", :value "Available"}
                       {:key "CHAdeMO", :value "Available"}
                       {:key "CCS (Combo 2)", :value "Available"}],
-           :text "",
-           :photos ["http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860"]
+           :text     "",
+           :photos   ["http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860"]
            }]})

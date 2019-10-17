@@ -11,7 +11,7 @@
                  [org.clojure/data.json "0.2.6"]
                  [ring/ring-json "0.5.0"]
                  [environ "1.0.0"]
-                 [tea-time "1.0.1"]
+                 [overtone/at-at "1.2.0"]
                  ]
   :main ^:skip-aot action-service.core
   :target-path "target/%s"
