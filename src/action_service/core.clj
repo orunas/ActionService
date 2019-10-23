@@ -39,17 +39,20 @@
 (comment
   )
 
-(defn check-station-action-wih-callback-t [state callback-url]
-  (println (str "check-station-action-wih-callback-t" state callback-url)))
 
 (defn check-station-action-wih-callback [state callback-url]
-  (println "in check-station-action-wih-callback")
-  (let [station-id (-> state :tracker :slots :ev_station_id)
-        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
-        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                              (-> (json/read-str body :key-fn keyword) :info first :keyValue))]
-    (http/post callback-url {:headers {"Content-Type" "application/json"}
-                             :body    (json/write-str {:name "utter_station_status"})})))
+  (println "in check-station-action-wih-callback" callback-url)
+  (try (let [station-id (-> state :tracker :slots :ev_station_id)
+         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                               (-> (json/read-str body :key-fn keyword) :info first :keyValue))]
+         (let [{:keys [status2 headers2 body2 error2] :as resp2} @(http/post callback-url {:headers {"Content-Type" "application/json"}
+                                        :body    (json/write-str {:name "utter_station_status"})})]
+           ;(println "respose" resp2)
+           ))
+       (catch clojure.lang.ExceptionInfo e
+         (println "caught exception" ))
+       (finally (println "finally"))))
 
 
 (defn track-station-start-action [state]
@@ -62,7 +65,7 @@
         conversation-id (-> state :tracker :conversation_id)
         schedule (at/every 10000
                            ;(println (format "http://localhost:5005/conversations/%s/execute" conversation-id))
-                           #(check-station-action-wih-callback (format "http://localhost:5005/conversations/%s/execute" "default") state)
+                           #(check-station-action-wih-callback state (format "http://localhost:5005/conversations/%s/execute?output_channel=callback" "default"))
                            my-pool)
         ]
     (println (format "http://localhost:5005/conversations/%s/execute" conversation-id))
@@ -86,9 +89,7 @@
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                              (-> (json/read-str body :key-fn keyword) :info first :keyValue))
-
-        ]
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue)) ]
     (printout2 {
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
@@ -119,11 +120,14 @@
      }
     ))
 
-
+(defn get-bot-callback [req]
+  (let [bd (json/read-str (slurp (req :body)) :key-fn keyword)]
+    (println "bot:" (bd :text))))
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
-              (cc/GET "/ev" [] get-list))
+              (cc/GET "/ev" [] get-list)
+              (cc/POST "/callback" [req] get-bot-callback))
 
 
 
