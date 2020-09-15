@@ -20,11 +20,14 @@
 (def my-pool (at/mk-pool))
 
 (defn printout2 [v]
-  (println v)
+  (pprint v)
   v)
 
 (defn in? [elm coll]
   (some #(= elm %) coll))
+
+(defonce shared-val-1 (atom nil))
+(defonce shared-val-2 (atom nil))
 
 (defonce server (atom nil))
 
@@ -46,7 +49,7 @@
          {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
          station-plugs (filter #(in? (% :key) (plugs :LRA-names))
                                (-> (json/read-str body :key-fn keyword) :info first :keyValue))]
-         (let [{:keys [status2 headers2 body2 error2] :as resp2} @(http/post callback-url {:headers {"Content-Type" "application/json"}
+         (let [resp2 @(http/post callback-url {:headers {"Content-Type" "application/json"}
                                         :body    (json/write-str {:name "utter_station_status"})})]
            ;(println "respose" resp2)
            ))
@@ -54,7 +57,7 @@
          (println "caught exception" ))
        (finally (println "finally"))))
 
-
+;panasu kad postinama atgal per callback'a http://localhost:5005/webhooks/rest/webhook?stream=true&token=
 (defn track-station-start-action [state]
   (println "track-station-start-action: started with state" state)
   (let [station-id (-> state :tracker :slots :ev_station_id)
@@ -96,18 +99,44 @@
                 :body    (json/write-str {:events [] :responses [
                                                                  {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
                                                                  ]})
-
                 })))
 
+(defn track-and-post-rasa-python-action-server [bd]
+  (reset! shared-val-1 (json/write-str bd))
+  (println "reset val 1 to request body")
+  (let [{:keys [status headers body error] :as resp} @(http/post "http://localhost:5055/webhook"
+                                                                 {
+                                                                  :headers {"Content-Type"  "application/json"}
+                                                                  :body    (json/write-str bd) } )
+        bd-resp (json/read-str body :key-fn keyword)
+        bd-resp-json (json/write-str bd-resp)
+        st (if error 500 200)
+        ]
 
+    (reset! shared-val-2 bd-resp-json)
+    (println "reset val 2 to response body" )
+    (println "status:" st)
+    ;(println (json/read-str body))
+    {
+     :status  st
+     :headers {"Content-Type"  "application/json"}
+     :body      bd-resp-json                                        ;(printout2 body)
+     }))
 
-(defn perceive-data [req1]
-  ;(println req1)
-  (let [bd (json/read-str (slurp (req1 :body)) :key-fn keyword)]
-    (println bd)
+(defn track-and-transmit-post [req]
+  (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
+    (println bd-str)
+    (track-and-post-rasa-python-action-server bd)))
+
+(defn perceive-data [req]
+  (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
+    (println bd-str)
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd)
-      "check_station_action" (check-station-action bd))))
+      "check_station_action" (check-station-action bd)
+      "station_form"  (track-and-post-rasa-python-action-server bd)
+    ;    "station_form"
+    )))
 
 (defn get-list [& req]
   ;(print "req params" req)
@@ -115,10 +144,12 @@
     (if error (println "failed" error))
     {
      :status  (if error 500 200)
-     :headers {"Context-Type" "application/json"}
+     :headers {"Content-Type" "application/json"}
      :body    body
      }
     ))
+(defn get-cached-val-1 [& req] @shared-val-1)
+(defn get-cached-val-2 [& req] @shared-val-2)
 
 (defn get-bot-callback [req]
   (let [bd (json/read-str (slurp (req :body)) :key-fn keyword)]
@@ -126,6 +157,9 @@
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
+              (cc/POST "/webhook-wrap" [req] track-and-transmit-post)
+              (cc/GET "/cached-val-1" [] get-cached-val-1)
+              (cc/GET "/cached-val-2" [] get-cached-val-2)
               (cc/GET "/ev" [] get-list)
               (cc/POST "/callback" [req] get-bot-callback))
 
