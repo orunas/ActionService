@@ -88,6 +88,15 @@
    }
   )
 
+(defn check-station-action-data [state]
+  (let [station-id (-> state :tracker :slots :ev_station_id)
+        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                              (-> (json/read-str body :key-fn keyword) :info first :keyValue)) ]
+                {:events [] :responses [
+                                                                 {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                                                                 ]}))
+
 (defn check-station-action [state]
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
@@ -101,32 +110,41 @@
                                                                  ]})
                 })))
 
-(defn track-and-post-rasa-python-action-server [bd]
-  (reset! shared-val-1 (json/write-str bd))
-  (println "reset val 1 to request body")
-  (let [{:keys [status headers body error] :as resp} @(http/post "http://localhost:5055/webhook"
-                                                                 {
-                                                                  :headers {"Content-Type"  "application/json"}
-                                                                  :body    (json/write-str bd) } )
-        bd-resp (json/read-str body :key-fn keyword)
-        bd-resp-json (json/write-str bd-resp)
-        st (if error 500 200)
-        ]
+(defn track-and-post-rasa-python-action-server
+  ([bd] (track-and-post-rasa-python-action-server bd (fn [v] v)))
+  ([bd f-post-action]
+   (reset! shared-val-1 (json/write-str bd))
+   (println "reset val 1 to request body")
+   (let [{:keys [status headers body error] :as resp} @(http/post "http://localhost:5055/webhook"
+                                                                  {
+                                                                   :headers {"Content-Type" "application/json"}
+                                                                   :body    (json/write-str bd)})
+         bd-resp (f-post-action (json/read-str body :key-fn keyword))
+         bd-resp-json (json/write-str bd-resp)
+         st (if error 500 200)
+         ]
 
-    (reset! shared-val-2 bd-resp-json)
-    (println "reset val 2 to response body" )
-    (println "status:" st)
-    ;(println (json/read-str body))
-    {
-     :status  st
-     :headers {"Content-Type"  "application/json"}
-     :body      bd-resp-json                                        ;(printout2 body)
-     }))
+     (reset! shared-val-2 bd-resp-json)
+     (println "reset val 2 to response body")
+     (println "status:" st)
+     ;(println (json/read-str body))
+     {
+      :status  st
+      :headers {"Content-Type" "application/json"}
+      :body    bd-resp-json                                 ;(printout2 body)
+      })))
+
+
 
 (defn track-and-transmit-post [req]
   (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
     (println bd-str)
     (track-and-post-rasa-python-action-server bd)))
+
+(defn redirect-to-check-station [body]
+  (let [a (-> body :responses first :template)]
+    (println body)
+    (if (= a "check_station_action") (check-station-action-data body) body )))
 
 (defn perceive-data [req]
   (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
@@ -134,9 +152,9 @@
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd)
       "check_station_action" (check-station-action bd)
-      "station_form"  (track-and-post-rasa-python-action-server bd)
+      "station_form" (track-and-post-rasa-python-action-server bd redirect-to-check-station))
     ;    "station_form"
-    )))
+    ))
 
 (defn get-list [& req]
   ;(print "req params" req)
