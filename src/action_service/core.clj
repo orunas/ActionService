@@ -42,6 +42,13 @@
 (comment
   )
 
+(defn wrap-result-to-json [resp error]
+  {
+   :status  (if error 500 200)
+   :headers {"Content-Type" "application/json"}
+   :body    (json/write-str resp)
+   }
+  )
 
 (defn check-station-action-wih-callback [state callback-url]
   (println "in check-station-action-wih-callback" callback-url)
@@ -86,6 +93,15 @@
    ;  :name             (str "track_reminder" station-id)
    :kill_on_user_msg false
    }
+  )
+
+
+
+(defn get-station [station-id]
+  (let [{:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))]
+    (println resp)
+    (wrap-result-to-json (-> (json/read-str body :key-fn keyword) :info first :keyValue) error)
+    )
   )
 
 (defn check-station-action-data [state]
@@ -179,7 +195,8 @@
               (cc/GET "/cached-val-1" [] get-cached-val-1)
               (cc/GET "/cached-val-2" [] get-cached-val-2)
               (cc/GET "/ev" [] get-list)
-              (cc/POST "/callback" [req] get-bot-callback))
+              (cc/POST "/callback" [req] get-bot-callback)
+              (cc/GET "/station/:id" [id] get-station))
 
 
 
