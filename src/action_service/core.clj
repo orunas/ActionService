@@ -98,22 +98,31 @@
 
 
 (defn get-station [station-id]
-  (let [{:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))]
-    (println resp)
-    (wrap-result-to-json (-> (json/read-str body :key-fn keyword) :info first :keyValue) error)
+  (println station-id)
+  (let [{:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        data (json/read-str body :key-fn keyword)
+        station-plugs (filter #(in? (% :key) (plugs :LRA-names))
+                              (-> data :info first :keyValue))]
+
+    (println station-plugs)
+    (wrap-result-to-json (->  data :info first :keyValue) error)
     )
   )
 
 (defn check-station-action-data [state]
+  (println state)
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
+        data (json/read-str body :key-fn keyword)
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
-                              (-> (json/read-str body :key-fn keyword) :info first :keyValue)) ]
+                              (-> data :info first :keyValue)) ]
+
                 {:events [] :responses [
                                                                  {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
                                                                  ]}))
 
 (defn check-station-action [state]
+  (println "check-station-action")
   (let [station-id (-> state :tracker :slots :ev_station_id)
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
@@ -127,7 +136,7 @@
                 })))
 
 (defn track-and-post-rasa-python-action-server
-  ([bd] (track-and-post-rasa-python-action-server bd (fn [v] v)))
+  ([bd] (track-and-post-rasa-python-action-server bd (fn [req resp] req)))
   ([bd f-post-action]
    (reset! shared-val-1 (json/write-str bd))
    (println "reset val 1 to request body")
@@ -135,7 +144,7 @@
                                                                   {
                                                                    :headers {"Content-Type" "application/json"}
                                                                    :body    (json/write-str bd)})
-         bd-resp (f-post-action (json/read-str body :key-fn keyword))
+         bd-resp (f-post-action bd (json/read-str body :key-fn keyword))
          bd-resp-json (json/write-str bd-resp)
          st (if error 500 200)
          ]
@@ -157,10 +166,9 @@
     (println bd-str)
     (track-and-post-rasa-python-action-server bd)))
 
-(defn redirect-to-check-station [body]
-  (let [a (-> body :responses first :template)]
-    (println body)
-    (if (= a "check_station_action") (check-station-action-data body) body )))
+(defn redirect-to-check-station [req-body resp-body]
+  (let [a (-> resp-body :responses first :template)]
+    (if (= a "check_station_action") (check-station-action-data req-body) resp-body )))
 
 (defn perceive-data [req]
   (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
@@ -196,7 +204,7 @@
               (cc/GET "/cached-val-2" [] get-cached-val-2)
               (cc/GET "/ev" [] get-list)
               (cc/POST "/callback" [req] get-bot-callback)
-              (cc/GET "/station/:id" [id] get-station))
+              (cc/GET "/station/:id" [id] (get-station id)))
 
 
 
