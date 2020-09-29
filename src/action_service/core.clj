@@ -14,6 +14,18 @@
   (:gen-class)
   )
 
+(def res-request-slot { :events
+                           [{:event "form" , :name "station_form", :timestamp nil}
+                            {:event "slot" , :name "requested_slot", :timestamp nil, :value "ev_station_id"}
+                            ]
+                :responses [
+                            {:buttons [], :custom {}, :template  "utter_ask_ev_station_id", :elements [], :image nil, :attachment nil,  :text nil,  :requested_slot nil,
+
+                             :last_ev_station_status_response_txt nil,
+                             :ev_station_id nil
+                             }]
+                })
+
 (def plugs {:LRA-names   ["AC (Mode 3, Type 2)" "CHAdeMO" "CCS (Combo 2)"]
             :short-names ["Type2" "CHAdeMO", "CCS"]}
   )
@@ -83,7 +95,7 @@
                 :status  (if error 500 200)
                 :headers {"Content-Type" "application/json"}
                 :body    (json/write-str {:events    []
-                                          :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-secs " seconds")}
+                                          :responses [{:text (str "ID:" station-id " "  "has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ",") " Starting monitoring .... I'll get back in " remind-secs " seconds")}
                                                       ]})})))
 
 (comment
@@ -117,7 +129,7 @@
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
                               (-> data :info first :keyValue)) ]
 
-                {:events [] :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                {:events [] :responses [{:text (str "ID:(" station-id ") \"" (data :name) "\" has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
                                                                  ]}))
 
 (defn check-station-action [state]
@@ -126,56 +138,30 @@
         {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
                               (-> (json/read-str body :key-fn keyword) :info first :keyValue)) ]
-    (printout2 {
-                :status  (if error 500 200)
-                :headers {"Content-Type" "application/json"}
-                :body    (json/write-str {:events [] :responses [
-                                                                 {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
-                                                                 ]})
-                })))
-
-(defn track-and-post-rasa-python-action-server
-  ([bd] (track-and-post-rasa-python-action-server bd (fn [req resp] req)))
-  ([bd f-post-action]
-   (reset! shared-val-1 (json/write-str bd))
-   (println "reset val 1 to request body")
-   (let [{:keys [status headers body error] :as resp} @(http/post "http://localhost:5055/webhook"
-                                                                  {
-                                                                   :headers {"Content-Type" "application/json"}
-                                                                   :body    (json/write-str bd)})
-         bd-resp (f-post-action bd (json/read-str body :key-fn keyword))
-         bd-resp-json (json/write-str bd-resp)
-         st (if error 500 200)
-         ]
-
-     (reset! shared-val-2 bd-resp-json)
-     (println "reset val 2 to response body")
-     (println "status:" st)
-     ;(println (json/read-str body))
-     {
-      :status  st
-      :headers {"Content-Type" "application/json"}
-      :body    bd-resp-json                                 ;(printout2 body)
-      })))
+    {:events [] :responses [
+                            {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                            ]}))
 
 
+(defn form-action [bd]
+  (let [ev-station-id (-> bd :tracker :slots :ev_station_id )]
+    (println "form-action:" ev-station-id)
+    (printout2
+      (if ev-station-id
+        (check-station-action-data bd)
+        res-request-slot))
+    )
+  )
 
-(defn track-and-transmit-post [req]
-  (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
-    (println bd-str)
-    (track-and-post-rasa-python-action-server bd)))
-
-(defn redirect-to-check-station [req-body resp-body]
-  (let [a (-> resp-body :responses first :template)]
-    (if (= a "check_station_action") (check-station-action-data req-body) resp-body )))
 
 (defn perceive-data [req]
-  (let [bd-str  (slurp (req :body))  bd (json/read-str bd-str :key-fn keyword)]
+  (let [bd-str  (slurp (req :body))
+        bd (json/read-str bd-str :key-fn keyword)]
     (println bd-str)
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd)
-      "check_station_action" (check-station-action bd)
-      "station_form" (track-and-post-rasa-python-action-server bd redirect-to-check-station))
+      "check_station_action" (wrap-result-to-json (check-station-action bd) nil)
+      "station_form" (wrap-result-to-json (form-action bd) nil))
     ;    "station_form"
     ))
 
@@ -198,7 +184,6 @@
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
-              (cc/POST "/webhook-wrap" [req] track-and-transmit-post)
               (cc/GET "/cached-val-1" [] get-cached-val-1)
               (cc/GET "/cached-val-2" [] get-cached-val-2)
               (cc/GET "/ev" [] get-list)
@@ -254,4 +239,19 @@
                  ;{:event "slot" , :name "ev_station_id", :timestamp nil}
                  {:event "form" , :name "requested_slot", :timestamp nil, :value "ev_station_id"}
                  ]
+                :responses [
+                            {:buttons [],
+                             :custom {},
+                             :template  "utter_ask_ev_station_id",
+                             :elements [],
+                             :image nil,
+                             :attachment nil,
+                             :text nil,
+                             :requested_slot nil,
+
+                             :ev_station nil,
+                             :road_number nil,
+                             :last_ev_station_status_response_txt nil,
+                             :ev_station_id nil
+                             }]
                 })
