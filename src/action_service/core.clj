@@ -117,8 +117,7 @@
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
                               (-> data :info first :keyValue)) ]
 
-                {:events [] :responses [
-                                                                 {:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
+                {:events [] :responses [{:text (str "station " station-id " has plugs : " (clojure.string/join "," (map #(% :key) station-plugs)) " available: " (available-to-string station-plugs "Available" ","))}
                                                                  ]}))
 
 (defn check-station-action [state]
