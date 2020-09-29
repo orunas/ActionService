@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7e36dde-a22f-426d-9c0e-05a0f836459d" name="Default Changelist" comment="darbo pc - nelabai kas ir keites">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/action-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/action-service.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/action_service/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/src/action_service/core.clj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,12 +37,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1670" />
-    <option name="y" value="103" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
   </component>
   <component name="ProjectId" id="1gxNX7b7heikU8e6sO3WhYW1u7c" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

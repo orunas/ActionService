@@ -246,3 +246,12 @@
            :text     "",
            :photos   ["http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860"]
            }]})
+
+
+
+(def res-data1 { :events
+                [{:event "form" , :name "test_form", :timestamp nil}
+                 ;{:event "slot" , :name "ev_station_id", :timestamp nil}
+                 {:event "form" , :name "requested_slot", :timestamp nil, :value "ev_station_id"}
+                 ]
+                })
