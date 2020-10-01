@@ -14,6 +14,7 @@
   (:gen-class)
   )
 
+
 (def res-request-slot { :events
                            [{:event "form" , :name "station_form", :timestamp nil}
                             {:event "slot" , :name "requested_slot", :timestamp nil, :value "ev_station_id"}
@@ -40,6 +41,7 @@
 
 (defonce shared-val-1 (atom nil))
 (defonce shared-val-2 (atom nil))
+(defonce stations (atom nil))
 
 (defonce server (atom nil))
 
@@ -54,12 +56,14 @@
 (comment
   )
 
-(defn wrap-result-to-json [resp error]
-  {
-   :status  (if error 500 200)
-   :headers {"Content-Type" "application/json"}
-   :body    (json/write-str resp)
-   }
+(defn wrap-result-to-json
+  ([resp-with-err] (let [[resp error] resp-with-err] (wrap-result-to-json resp error)))
+  ([resp error]
+   {
+    :status  (if error 500 200)
+    :headers {"Content-Type" "application/json"}
+    :body    (json/write-str resp)
+    })
   )
 
 (defn check-station-action-wih-callback [state callback-url]
@@ -121,11 +125,14 @@
     )
   )
 
+(defn get-station-status [station-id]
+  (let [{:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))]
+    (json/read-str body :key-fn keyword)))
+
 (defn check-station-action-data [state]
   (println state)
   (let [station-id (-> state :tracker :slots :ev_station_id)
-        {:keys [status headers body error] :as resp} @(http/get (format "http://eismoinfo.lt/eismoinfo-backend/feature-info/EIA/%s" station-id))
-        data (json/read-str body :key-fn keyword)
+        data (get-station-status station-id)
         station-plugs (filter #(in? (% :key) (plugs :LRA-names))
                               (-> data :info first :keyValue)) ]
 
@@ -165,16 +172,14 @@
     ;    "station_form"
     ))
 
-(defn get-list [& req]
+(defn get-list []
   ;(print "req params" req)
   (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
-    (if error (println "failed" error))
-    {
-     :status  (if error 500 200)
-     :headers {"Content-Type" "application/json"}
-     :body    body
-     }
-    ))
+    [(json/read-str body :key-fn keyword) error]) )
+
+(defn get-list-resp [& req]
+  (wrap-result-to-json (get-list)))
+
 (defn get-cached-val-1 [& req] @shared-val-1)
 (defn get-cached-val-2 [& req] @shared-val-2)
 
@@ -186,7 +191,7 @@
               (cc/POST "/rasa-webhook" [req] perceive-data)
               (cc/GET "/cached-val-1" [] get-cached-val-1)
               (cc/GET "/cached-val-2" [] get-cached-val-2)
-              (cc/GET "/ev" [] get-list)
+              (cc/GET "/ev" [] get-list-resp)
               (cc/POST "/callback" [req] get-bot-callback)
               (cc/GET "/station/:id" [id] (get-station id)))
 
@@ -216,7 +221,24 @@
       (reset! server (run-server handler {:port port}))
       )))
 
+(defn append-road [st]
+  (let [id (st :id)
+        d (get-station-status id)
+        kv (-> d :info first :keyValue )
+        road (-> (filter #(= (% :key) "Road") kv) first :value)
+        km (-> (filter #(= (% :key) "Kilometer") kv) first :value)
+        ]
+    (assoc st :road road :km km)))
 
+(defn get-stations []
+  (let [[d e] (get-list)]
+    (map append-road (-> d first :features)) ))
+
+(defn load-stations []
+  (reset! stations (get-stations)))
+
+(defn get-stations-for-road [stations-list road]
+  (filter #(= (% :road) road ) stations-list))
 
 (def data1
   {:name "Joniškio elektromobilių įkrovos stotelė, A12,",
