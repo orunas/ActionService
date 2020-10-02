@@ -161,14 +161,59 @@
   )
 
 
+
+
+(defn append-road [st]
+  (let [id (st :id)
+        d (get-station-status id)
+        kv (-> d :info first :keyValue )
+        road (-> (filter #(= (% :key) "Road") kv) first :value)
+        km (-> (filter #(= (% :key) "Kilometer") kv) first :value)
+        ]
+    (assoc st :road road :km km)))
+
+(defn get-stations []
+  (let [[d e] (get-list)]
+    (map append-road (-> d first :features)) ))
+
+(defn load-stations []
+  (reset! stations (get-stations)))
+
+
+(defn fix-station [search-key key-val new-key new-val]
+  (reset! stations (map #(if (= (% search-key) key-val) (assoc % new-key new-val) %) @stations)))
+
+(defn get-stations-by-road [stations road]
+  (filter #(= (% :road) road) stations))
+
+;(fn [x] (update x new-key #(if (= % key-val) new-val %)))
+
+;(fix-station :id "4801" :road "A1" )
+;(fix-station :id "4801" :km "292.92" )
+
+(defn get-stations-for-road [stations-list road]
+  (filter #(= (% :road) road ) stations-list))
+
+(defn action-response-text [txt]
+  {:events [] :responses [{:text txt}]}  )
+
+(defn list-stations-action [road]
+  (let [                                                    ;road (-> state :tracker :slots :road_number)
+        st (get-stations-by-road @stations road)]
+    (action-response-text
+       (if (empty? st) (str "Sorry found no stations on " road) (reduce #(str %1 (%2 :id) ": " (%2 :name) "\n") "Stations found:\n" st)))))
+
+
+
 (defn perceive-data [req]
   (let [bd-str  (slurp (req :body))
         bd (json/read-str bd-str :key-fn keyword)]
-    (println bd-str)
+    ;(println bd-str)
     (case (bd :next_action)
       "track_station_start_action" (track-station-start-action bd)
       "check_station_action" (wrap-result-to-json (check-station-action bd) nil)
-      "station_form" (wrap-result-to-json (form-action bd) nil))
+      "station_form" (wrap-result-to-json (form-action bd) nil)
+      "list_stations_action"  (wrap-result-to-json [(list-stations-action (-> bd :tracker :slots :road_number)) nil]))
     ;    "station_form"
     ))
 
@@ -186,6 +231,10 @@
 (defn get-bot-callback [req]
   (let [bd (json/read-str (slurp (req :body)) :key-fn keyword)]
     (println "bot:" (bd :text))))
+
+
+
+
 
 (cc/defroutes all-routes
               (cc/POST "/rasa-webhook" [req] perceive-data)
@@ -221,24 +270,7 @@
       (reset! server (run-server handler {:port port}))
       )))
 
-(defn append-road [st]
-  (let [id (st :id)
-        d (get-station-status id)
-        kv (-> d :info first :keyValue )
-        road (-> (filter #(= (% :key) "Road") kv) first :value)
-        km (-> (filter #(= (% :key) "Kilometer") kv) first :value)
-        ]
-    (assoc st :road road :km km)))
 
-(defn get-stations []
-  (let [[d e] (get-list)]
-    (map append-road (-> d first :features)) ))
-
-(defn load-stations []
-  (reset! stations (get-stations)))
-
-(defn get-stations-for-road [stations-list road]
-  (filter #(= (% :road) road ) stations-list))
 
 (def data1
   {:name "Joniškio elektromobilių įkrovos stotelė, A12,",
