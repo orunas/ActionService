@@ -17,15 +17,11 @@
 
 (def res-request-slot { :events
                            [{:event "form" , :name "station_form", :timestamp nil}
-                            {:event "slot" , :name "requested_slot", :timestamp nil, :value "ev_station_id"}
-                            ]
+                            {:event "slot" , :name "requested_slot", :timestamp nil, :value "ev_station_id"} ]
                 :responses [
                             {:buttons [], :custom {}, :template  "utter_ask_ev_station_id", :elements [], :image nil, :attachment nil,  :text nil,  :requested_slot nil,
-
                              :last_ev_station_status_response_txt nil,
-                             :ev_station_id nil
-                             }]
-                })
+                             :ev_station_id nil  }]})
 
 (def plugs {:LRA-names   ["AC (Mode 3, Type 2)" "CHAdeMO" "CCS (Combo 2)"]
             :short-names ["Type2" "CHAdeMO", "CCS"]}
