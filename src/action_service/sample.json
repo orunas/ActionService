@@ -1,0 +1,15 @@
+{
+  "@id": "http://ev.ex/request",
+  "@type": "htt://ev.ex/requesttype",
+  "@context":{
+    "intent" : "http://ev.ex/request"
+  },
+  "intent": {
+    "@id": "intent",
+    "@type": "est",
+    "name": "check_station",
+    "confidence": 0.9999989867
+  },
+
+  "text": "station 4991"
+}
