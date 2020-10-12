@@ -62,6 +62,12 @@
     })
   )
 
+
+(defn get-list []
+  ;(print "req params" req)
+  (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
+    [(json/read-str body :key-fn keyword) error]) )
+
 (defn check-station-action-wih-callback [state callback-url]
   (println "in check-station-action-wih-callback" callback-url)
   (try (let [station-id (-> state :tracker :slots :ev_station_id)
@@ -213,10 +219,7 @@
     ;    "station_form"
     ))
 
-(defn get-list []
-  ;(print "req params" req)
-  (let [{:keys [status headers body error] :as resp} @(http/get "http://eismoinfo.lt/eismoinfo-backend/layer-static-features/EIA?lks=true")]
-    [(json/read-str body :key-fn keyword) error]) )
+
 
 (defn get-list-resp [& req]
   (wrap-result-to-json (get-list)))
@@ -229,6 +232,16 @@
     (println "bot:" (bd :text))))
 
 
+(defn get-nlu [r]
+  (let [bd-str  (slurp (r :body))
+        bd (json/read-str bd-str :key-fn keyword)
+        {:keys [status headers body error] :as resp} @(http/post "http://localhost:5005/model/parse" {:headers {"Content-Type" "application/json"}
+                                    :body    (json/write-str bd) } )
+        bd2 (json/read-str body :key-fn keyword)]
+    (wrap-result-to-json [bd2 error] )
+    )
+  )
+
 
 
 
@@ -238,7 +251,9 @@
               (cc/GET "/cached-val-2" [] get-cached-val-2)
               (cc/GET "/ev" [] get-list-resp)
               (cc/POST "/callback" [req] get-bot-callback)
-              (cc/GET "/station/:id" [id] (get-station id)))
+              (cc/GET "/station/:id" [id] (get-station id))
+              (cc/POST "/nlu" [req] get-nlu)
+              )
 
 
 
