@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7e36dde-a22f-426d-9c0e-05a0f836459d" name="Default Changelist" comment="darbo pc - nelabai kas ir keites">
-      <change beforePath="$PROJECT_DIR$/action-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/action-service.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/action_service/rdf.clj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/action_service/core.clj" beforeDir="false" afterPath="$PROJECT_DIR$/src/action_service/core.clj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/action_service/sample.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/action_service/sample.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/default/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,21 +32,44 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/action_service/sample.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1139">
-              <caret line="67" column="3" selection-start-line="67" selection-start-column="3" selection-end-line="67" selection-end-column="3" />
+            <state relative-caret-position="-377">
+              <caret line="35" column="29" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/action_service/rdf.clj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="98" column="21" lean-forward="true" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/action_service/eagent.clj">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project.clj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/action_service/core.clj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
+            <state relative-caret-position="-4097">
+              <caret line="33" column="4" lean-forward="true" selection-end-line="320" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -74,12 +97,13 @@
       <list>
         <option value="$PROJECT_DIR$/src/action_service/sample.json" />
         <option value="$PROJECT_DIR$/src/action_service/core.clj" />
+        <option value="$PROJECT_DIR$/src/action_service/rdf.clj" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-137" />
-    <option name="y" value="55" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -110,6 +134,10 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="action_service" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="action-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -121,7 +149,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1601412475868" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1602622444781" />
     <property name="cursive.last.file.extension.C\:/Users/oruna/Documents/GitHub/ActionService/src" value="clj" />
     <property name="cursive.last.file.extension.C\:/git/clojure/action-service/src" value="clj" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../travel-test-project" />
@@ -130,7 +158,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="ReplState" timestamp="1602537532389">{:repl-history {:ide [], :local [{:command &quot;(use '{action-service.core})&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(use '(action-service.core))&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data s)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'a)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(require 'action-service.core)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(ns action-service.core)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.main)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'test)&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data 'test)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core1])&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(require '[action-service.core])&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data)&quot;, :offset 35, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data \&quot;ss\&quot;)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.test)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(test1 \&quot;s\&quot;)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;( perceive-data  \&quot;sd\&quot;)&quot;, :offset 22, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core])&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;ss\&quot;)&quot;, :offset 20, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;s\&quot;)&quot;, :offset 19, :ns &quot;action-service.core&quot;} {:command &quot;(slurp (@in-data :body))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next-action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next_action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;(keys (json/read-str @in-data :key-fn keyword) )&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(:domain (json/read-str @in-data :key-fn keyword) )&quot;, :offset 51, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn)&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn keyword)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;@in-data&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; (json/read-str @in-data :key-fn keyword) :tracker :slots :ev_station_id)&quot;, :offset 76, :ns &quot;action-service.core&quot;} {:command &quot;(use action-service.core)&quot;, :offset 25, :ns &quot;action-service.core&quot;} {:command &quot;(def data1\n  {:name \&quot;Joniškio elektromobilių įkrovos stotelė, A12,\&quot;,\n   :info [{:keyValue [{:key \&quot;Photo date\&quot;, :value \&quot;2019-10-02 21:41\&quot;}\n                      {:key \&quot;Road\&quot;, :value \&quot;A12\&quot;}\n                      {:key \&quot;Kilometer\&quot;, :value \&quot;20.31\&quot;}\n                      {:key \&quot;Collection date\&quot;, :value \&quot;2019-10-02 21:46\&quot;}\n                      {:key \&quot;Common status\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;AC (Mode 3, Type 2)\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;CHAdeMO\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;CCS (Combo 2)\&quot;, :value \&quot;Available\&quot;}],\n           :text \&quot;\&quot;,\n           :photos [\&quot;http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860\&quot;]\n           }]})&quot;, :offset 720, :ns &quot;action-service.core&quot;} {:command &quot;data1&quot;, :offset 5, :ns &quot;action-service.core&quot;} {:command &quot;(def d2 (-&gt; data1 :info first :keyValue))&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;d2&quot;, :offset 2, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(= (% :key) \&quot;CHAdeMO\&quot;) d2 )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(in? 1 [1 3 3])&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(in? 5 [1 3 3])&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(in? \&quot;31\&quot; [1 \&quot;31\&quot; 3])&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(in? (% :key) (plugs :LRA-names)) d2 )&quot;, :offset 47, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core )&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(.format (.plusSeconds (java.time.LocalDateTime/now) 10) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))&quot;, :offset 114, :ns &quot;action-service.core&quot;} {:command &quot;(tt/every! 2 (bound-fn [] (prn :hi)))&quot;, :offset 37, :ns &quot;action-service.core&quot;} {:command &quot;(def task (tt/every! 2 (bound-fn [] (prn :hi))))&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(tt/stop!)&quot;, :offset 10, :ns &quot;action-service.core&quot;} {:command &quot;(tt/start!)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;(tt/cancel! task)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(use 'overtone.at-at)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(def my-pool\n  (mk-pool))&quot;, :offset 25, :ns &quot;action-service.core&quot;} {:command &quot;(every 1000 #(println \&quot;I am cool!\&quot;) my-pool)&quot;, :offset 44, :ns &quot;action-service.core&quot;} {:command &quot;(stop *1)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(at/every 1000 #(println \&quot;t\&quot;) my-pool)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(stop *2)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(at/show-schedule my-pool)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(stop-and-reset-pool! my-pool)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(at/stop-and-reset-pool! my-pool)&quot;, :offset 33, :ns &quot;action-service.core&quot;} {:command &quot;(import 'action-service.test)&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(print )&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.-main)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core :reload)&quot;, :offset 34, :ns &quot;action-service.core&quot;} {:command &quot;(print @shared-val)&quot;, :offset 19, :ns &quot;nil&quot;} {:command &quot;@shared-val&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;  (-main)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(stop)&quot;, :offset 6, :ns &quot;action-service.core&quot;} {:command &quot;(stop-server)&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;@shared-val-2&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(def a nil)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;a&quot;, :offset 1, :ns &quot;action-service.core&quot;} {:command &quot;(if a (print \&quot;not nil\&quot;))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(if a (print \&quot;not nil\&quot;) (print \&quot;nill\&quot;))&quot;, :offset 39, :ns &quot;action-service.core&quot;} {:command &quot;(def a [1 2])&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(let [[a1 a2] a] (print a1 a2))&quot;, :offset 31, :ns &quot;action-service.core&quot;} {:command &quot;(first [1 2])&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(def dt (first (get-list)))&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;dt&quot;, :offset 2, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; dt first :features first)&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(get-station-status \&quot;5234\&quot;)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(append-road (-&gt; dt first :features first))&quot;, :offset 43, :ns &quot;action-service.core&quot;} {:command &quot;(get-station-status \&quot;4801\&quot; )&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(map #(% :road) (load-stations))&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(first @stations)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(= (% :road) \&quot;A1\&quot; ) @stations)&quot;, :offset 39, :ns &quot;action-service.core&quot;} {:command &quot;(get-stations-for-road @stations \&quot;A1\&quot;)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(load-stations)&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(fix-station :id \&quot;4801\&quot; :road \&quot;A2\&quot; )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(fix-station :id \&quot;4801\&quot; :km \&quot;292.92\&quot; )&quot;, :offset 38} {:command &quot;(fix-station :id \&quot;4801\&quot; :road \&quot;A1\&quot; )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(get-stations-by-road @stations \&quot;A2\&quot;)&quot;, :offset 37, :ns &quot;action-service.core&quot;} {:command &quot;(list-stations-action \&quot;A1\&quot;)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(wrap-result-to-json {:events [], :responses [{:text \&quot;4791: EV, A2 80 km\\n\&quot;}]})&quot;, :offset 79, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core :reload-all)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(-main)&quot;, :offset 7, :ns &quot;action-service.core&quot;}], :remote []}}</component>
+  <component name="ReplState" timestamp="1602622391399">{:repl-history {:ide [], :local [{:command &quot;(use '{action-service.core})&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(use '(action-service.core))&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data s)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'a)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(require 'action-service.core)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(ns action-service.core)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.main)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data 'test)&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data 'test)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core1])&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(require '[action-service.core])&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data)&quot;, :offset 35, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.perceive-data \&quot;ss\&quot;)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.test)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(test1 \&quot;s\&quot;)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;( perceive-data  \&quot;sd\&quot;)&quot;, :offset 22, :ns &quot;action-service.core&quot;} {:command &quot;(use '[action-service.core])&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;ss\&quot;)&quot;, :offset 20, :ns &quot;action-service.core&quot;} {:command &quot;(perceive-data \&quot;s\&quot;)&quot;, :offset 19, :ns &quot;action-service.core&quot;} {:command &quot;(slurp (@in-data :body))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data)&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next-action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;((json/read-str @in-data :key-fn keyword) :next_action)&quot;, :offset 55, :ns &quot;action-service.core&quot;} {:command &quot;(keys (json/read-str @in-data :key-fn keyword) )&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(:domain (json/read-str @in-data :key-fn keyword) )&quot;, :offset 51, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn)&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(json/read-str @in-data :key-fn keyword)&quot;, :offset 40, :ns &quot;action-service.core&quot;} {:command &quot;@in-data&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; (json/read-str @in-data :key-fn keyword) :tracker :slots :ev_station_id)&quot;, :offset 76, :ns &quot;action-service.core&quot;} {:command &quot;(use action-service.core)&quot;, :offset 25, :ns &quot;action-service.core&quot;} {:command &quot;(def data1\n  {:name \&quot;Joniškio elektromobilių įkrovos stotelė, A12,\&quot;,\n   :info [{:keyValue [{:key \&quot;Photo date\&quot;, :value \&quot;2019-10-02 21:41\&quot;}\n                      {:key \&quot;Road\&quot;, :value \&quot;A12\&quot;}\n                      {:key \&quot;Kilometer\&quot;, :value \&quot;20.31\&quot;}\n                      {:key \&quot;Collection date\&quot;, :value \&quot;2019-10-02 21:46\&quot;}\n                      {:key \&quot;Common status\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;AC (Mode 3, Type 2)\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;CHAdeMO\&quot;, :value \&quot;Available\&quot;}\n                      {:key \&quot;CCS (Combo 2)\&quot;, :value \&quot;Available\&quot;}],\n           :text \&quot;\&quot;,\n           :photos [\&quot;http://www.eismoinfo.lt/eismoinfo-backend/image-provider/camera/old?id=87950860\&quot;]\n           }]})&quot;, :offset 720, :ns &quot;action-service.core&quot;} {:command &quot;data1&quot;, :offset 5, :ns &quot;action-service.core&quot;} {:command &quot;(def d2 (-&gt; data1 :info first :keyValue))&quot;, :offset 41, :ns &quot;action-service.core&quot;} {:command &quot;d2&quot;, :offset 2, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(= (% :key) \&quot;CHAdeMO\&quot;) d2 )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(in? 1 [1 3 3])&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(in? 5 [1 3 3])&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(in? \&quot;31\&quot; [1 \&quot;31\&quot; 3])&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(in? (% :key) (plugs :LRA-names)) d2 )&quot;, :offset 47, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core )&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(.format (.plusSeconds (java.time.LocalDateTime/now) 10) (java.time.format.DateTimeFormatter/ISO_LOCAL_DATE_TIME))&quot;, :offset 114, :ns &quot;action-service.core&quot;} {:command &quot;(tt/every! 2 (bound-fn [] (prn :hi)))&quot;, :offset 37, :ns &quot;action-service.core&quot;} {:command &quot;(def task (tt/every! 2 (bound-fn [] (prn :hi))))&quot;, :offset 48, :ns &quot;action-service.core&quot;} {:command &quot;(tt/stop!)&quot;, :offset 10, :ns &quot;action-service.core&quot;} {:command &quot;(tt/start!)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;(tt/cancel! task)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(use 'overtone.at-at)&quot;, :offset 21, :ns &quot;action-service.core&quot;} {:command &quot;(def my-pool\n  (mk-pool))&quot;, :offset 25, :ns &quot;action-service.core&quot;} {:command &quot;(every 1000 #(println \&quot;I am cool!\&quot;) my-pool)&quot;, :offset 44, :ns &quot;action-service.core&quot;} {:command &quot;(stop *1)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(at/every 1000 #(println \&quot;t\&quot;) my-pool)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(stop *2)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(at/show-schedule my-pool)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;(stop-and-reset-pool! my-pool)&quot;, :offset 30, :ns &quot;action-service.core&quot;} {:command &quot;(at/stop-and-reset-pool! my-pool)&quot;, :offset 33, :ns &quot;action-service.core&quot;} {:command &quot;(import 'action-service.test)&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(print )&quot;, :offset 8, :ns &quot;action-service.core&quot;} {:command &quot;(action-service.core.-main)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core :reload)&quot;, :offset 34, :ns &quot;action-service.core&quot;} {:command &quot;(print @shared-val)&quot;, :offset 19, :ns &quot;nil&quot;} {:command &quot;@shared-val&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;  (-main)&quot;, :offset 9, :ns &quot;action-service.core&quot;} {:command &quot;(stop)&quot;, :offset 6, :ns &quot;action-service.core&quot;} {:command &quot;(stop-server)&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core)&quot;, :offset 26, :ns &quot;action-service.core&quot;} {:command &quot;@shared-val-2&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(def a nil)&quot;, :offset 11, :ns &quot;action-service.core&quot;} {:command &quot;a&quot;, :offset 1, :ns &quot;action-service.core&quot;} {:command &quot;(if a (print \&quot;not nil\&quot;))&quot;, :offset 24, :ns &quot;action-service.core&quot;} {:command &quot;(if a (print \&quot;not nil\&quot;) (print \&quot;nill\&quot;))&quot;, :offset 39, :ns &quot;action-service.core&quot;} {:command &quot;(def a [1 2])&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(let [[a1 a2] a] (print a1 a2))&quot;, :offset 31, :ns &quot;action-service.core&quot;} {:command &quot;(first [1 2])&quot;, :offset 13, :ns &quot;action-service.core&quot;} {:command &quot;(def dt (first (get-list)))&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;dt&quot;, :offset 2, :ns &quot;action-service.core&quot;} {:command &quot;(-&gt; dt first :features first)&quot;, :offset 29, :ns &quot;action-service.core&quot;} {:command &quot;(get-station-status \&quot;5234\&quot;)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(append-road (-&gt; dt first :features first))&quot;, :offset 43, :ns &quot;action-service.core&quot;} {:command &quot;(get-station-status \&quot;4801\&quot; )&quot;, :offset 28, :ns &quot;action-service.core&quot;} {:command &quot;(map #(% :road) (load-stations))&quot;, :offset 32, :ns &quot;action-service.core&quot;} {:command &quot;(first @stations)&quot;, :offset 17, :ns &quot;action-service.core&quot;} {:command &quot;(filter #(= (% :road) \&quot;A1\&quot; ) @stations)&quot;, :offset 39, :ns &quot;action-service.core&quot;} {:command &quot;(get-stations-for-road @stations \&quot;A1\&quot;)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(load-stations)&quot;, :offset 15, :ns &quot;action-service.core&quot;} {:command &quot;(fix-station :id \&quot;4801\&quot; :road \&quot;A2\&quot; )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(fix-station :id \&quot;4801\&quot; :km \&quot;292.92\&quot; )&quot;, :offset 38} {:command &quot;(fix-station :id \&quot;4801\&quot; :road \&quot;A1\&quot; )&quot;, :offset 36, :ns &quot;action-service.core&quot;} {:command &quot;(get-stations-by-road @stations \&quot;A2\&quot;)&quot;, :offset 37, :ns &quot;action-service.core&quot;} {:command &quot;(list-stations-action \&quot;A1\&quot;)&quot;, :offset 27, :ns &quot;action-service.core&quot;} {:command &quot;(wrap-result-to-json {:events [], :responses [{:text \&quot;4791: EV, A2 80 km\\n\&quot;}]})&quot;, :offset 79, :ns &quot;action-service.core&quot;} {:command &quot;(use 'action-service.core :reload-all)&quot;, :offset 38, :ns &quot;action-service.core&quot;} {:command &quot;(-main)&quot;, :offset 7, :ns &quot;action-service.core&quot;}], :remote []}}</component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -232,19 +260,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13006397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13113007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Version Control" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -252,16 +277,19 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="REPL" side_tool="true" visible="true" weight="0.32995737" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Leiningen" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.14842904" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="REPL" order="6" side_tool="true" visible="true" weight="0.32995737" />
+      <window_info anchor="right" id="Leiningen" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -327,15 +355,32 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/action_service/sample.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="67" column="3" selection-start-line="67" selection-start-column="3" selection-end-line="67" selection-end-column="3" />
+        <state relative-caret-position="-377">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/action_service/core.clj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
+        <state relative-caret-position="-4097">
+          <caret line="33" column="4" lean-forward="true" selection-end-line="320" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/action_service/eagent.clj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/action_service/rdf.clj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="98" column="21" lean-forward="true" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
         </state>
       </provider>
     </entry>

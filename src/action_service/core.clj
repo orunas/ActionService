@@ -10,6 +10,7 @@
     [clojure.data.json :as json]
     [environ.core :refer [env]]
     [overtone.at-at :as at]
+    [action-service.rdf :as r]
     )
   (:gen-class)
   )
@@ -238,9 +239,7 @@
         {:keys [status headers body error] :as resp} @(http/post "http://localhost:5005/model/parse" {:headers {"Content-Type" "application/json"}
                                     :body    (json/write-str bd) } )
         bd2 (json/read-str body :key-fn keyword)]
-    (wrap-result-to-json [bd2 error] )
-    )
-  )
+    (wrap-result-to-json [bd2 error] )))
 
 
 
